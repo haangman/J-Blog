@@ -1,5 +1,6 @@
-<!-- beautiful-jekyll 기본 footer 를 우리 톤에 맞게 재작성. 댓글 + busuanzi 카운터 통합. -->
-{%- include comments.html -%}
+<!-- beautiful-jekyll 기본 footer 를 우리 톤에 맞게 재작성. busuanzi 카운터 통합.
+     댓글(giscus)은 _includes/after-content.html 에서 노출 — 여기서는 호출 안 한다
+     (두 곳 include 시 "댓글" 헤더가 두 번 노출되는 문제 V9-fix). -->
 
 <footer>
   <div class="container-md beautiful-jekyll-footer">
