@@ -1,3 +1,9 @@
+# beautiful-jekyll 기반 _config.yml.
+# V7-B-2 에서 minima → beautiful-jekyll 로 전환. GitHub Pages 자동 빌드 OK.
+
+# remote_theme 으로 beautiful-jekyll 사용 (Gemfile 에 jekyll-remote-theme 추가)
+remote_theme: daattali/beautiful-jekyll@6.0.1
+
 # Site
 title: "trend log"
 description: "요즘 뜨고 있는 것들에 대한 짧은 기록"
@@ -9,14 +15,10 @@ timezone: Asia/Seoul
 url: "https://haangman.github.io"
 baseurl: "/J-Blog"
 
-# Google Search Console verification — GSC 등록 후 사용자가 토큰 채움.
-# <meta name="google-site-verification" content="여기값"> 의 content 값만.
-# jekyll-seo-tag 가 이 필드를 자동으로 meta 태그로 출력.
-#<meta name="google-site-verification" content="z9a9RSK9CLJnq-mDNm8beC5UemOO2czYXSdvQpHql4U" />
+# GSC verification (jekyll-seo-tag 자동 출력)
 google_site_verification: "z9a9RSK9CLJnq-mDNm8beC5UemOO2czYXSdvQpHql4U"
 
-# Giscus 댓글 — https://giscus.app 에서 설정 후 repo_id / category_id 채움.
-# 사전 작업: 리포 Settings → Features → Discussions 활성 + giscus app 설치.
+# Giscus 댓글 — V6 우리 _includes/comments.html 시스템 사용
 giscus:
   enabled: true
   repo: "haangman/J-Blog"
@@ -31,12 +33,25 @@ giscus:
   theme: "preferred_color_scheme"
   lang: "ko"
 
+# --- beautiful-jekyll 색상 (따뜻한 잡지 톤) ---
+page-col:  "#FCF8F1"   # 오프화이트 배경
+text-col:  "#2B2B2B"   # 짙은 회색 본문
+link-col:  "#B45309"   # 황토 (링크)
+hover-col: "#92400E"   # 진한 황토 (hover)
+nav-col:        "#3D2817"   # 짙은 브라운 (네비)
+nav-text-col:   "#FCF8F1"   # 오프화이트 (네비 텍스트)
+nav-hover-col:  "#F59E0B"   # 따뜻한 호박색 (네비 hover)
+footer-col:        "#3D2817"
+footer-text-col:   "#FCF8F1"
+footer-link-col:   "#F59E0B"
+
+# 본문에 세리프 한글 폰트 적용 (head-extra hook 으로)
+# beautiful-jekyll 의 _includes/head-custom.html 을 우리가 override 해서 Noto Serif KR 임포트
+
 # Build
-theme: minima
 markdown: kramdown
 permalink: /:year/:month/:day/:slug/
 
-# Pagination
 paginate: 10
 paginate_path: "/page:num/"
 
@@ -45,6 +60,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
+  - jekyll-remote-theme
 
 # Exclude from build
 exclude:

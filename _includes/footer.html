@@ -1,38 +1,55 @@
+<!-- beautiful-jekyll 기본 footer 를 우리 톤에 맞게 재작성. 댓글 + busuanzi 카운터 통합. -->
 {%- include comments.html -%}
 
-<footer class="site-footer h-card">
-  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+<footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
 
-  <div class="wrapper">
-    {%- if site.title -%}
-      <h2 class="footer-heading">{{ site.title | escape }}</h2>
-    {%- endif -%}
+        {% if site.social-network-links %}
+        <ul class="list-inline text-center footer-links">
+          {% for link in site.social-network-links %}
+          <li class="list-inline-item">
+            <a href="{{ link[1] }}" title="{{ link[0] | capitalize }}">
+              <span class="fa-stack fa-lg" aria-hidden="true">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-{{ link[0] }} fa-stack-1x fa-inverse"></i>
+              </span>
+              <span class="sr-only">{{ link[0] | capitalize }}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        {%- if site.description -%}
-          <p class="site-description">{{ site.description | escape }}</p>
-        {%- endif -%}
-        {%- if site.author -%}
-          <p style="margin-top: 0.5em; color: #828282;">by {{ site.author }}</p>
-        {%- endif -%}
-      </div>
+        <p class="copyright text-muted">
+          {{ site.author | default: site.title }}
+          &nbsp;&bull;&nbsp;
+          {{ 'now' | date: "%Y" }}
 
-      <div class="footer-col footer-col-2">
-        <p class="feed-subscribe">
-          <a href="{{ "/feed.xml" | relative_url }}">RSS feed</a>
+          {% if site.title and site.show-site-title-in-footer %}
+          &nbsp;&bull;&nbsp;
+          <a href="{{ '/' | absolute_url }}">{{ site.title }}</a>
+          {% endif %}
         </p>
-      </div>
 
-      <div class="footer-col footer-col-3" style="text-align: right;">
-        <p style="color: #828282; font-size: 0.9em; line-height: 1.7;">
-          <span title="누적 순방문자">방문자 <span id="busuanzi_value_site_uv">…</span></span><br>
-          <span title="누적 조회수">조회수 <span id="busuanzi_value_site_pv">…</span></span><br>
+        <!-- 방문자 카운터 (busuanzi) -->
+        <p class="text-center" style="font-size: 0.88em; opacity: 0.75; margin-top: 0.6em;">
+          <span title="누적 순방문자">방문자 <span id="busuanzi_value_site_uv">…</span></span>
+          &nbsp;·&nbsp;
+          <span title="누적 조회수">조회수 <span id="busuanzi_value_site_pv">…</span></span>
+          &nbsp;·&nbsp;
           <span title="이 페이지 조회수">이 글 <span id="busuanzi_value_page_pv">…</span></span>
         </p>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        <!-- beautiful-jekyll 크레딧 (테마 라이선스 준수) -->
+        <p class="theme-by text-muted" style="font-size: 0.78em; opacity: 0.55; margin-top: 0.4em;">
+          Powered by
+          <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+        </p>
+
       </div>
     </div>
   </div>
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </footer>
