@@ -1,43 +1,257 @@
-<!-- beautiful-jekyll head 끝에 추가되는 hook. 한글 세리프 폰트 + 본문 톤 -->
+<!-- beautiful-jekyll head hook — 매거진 톤 강화 design.
+     변경 큰 항목은 별도 stylesheet 으로 분리 가능했지만 GitHub Pages remote_theme 환경에서
+     assets 캐시 신뢰성 위해 inline 유지. -->
+
+<!-- 폰트: 본문 세리프(한글 Noto Serif KR + 영문 Lora) + 제목용 디스플레이 세리프 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:wght@700;800;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
 <style>
-  body, .post-list, .post-content, p, li, blockquote {
-    font-family: "Noto Serif KR", "Lora", Georgia, serif !important;
+  /* ======================================================================
+     V10 디자인: 따뜻한 매거진 톤. 황토/브라운 액센트.
+     ====================================================================== */
+
+  :root {
+    --jb-ink:        #2B2018;    /* 본문 — 짙은 차콜 브라운 */
+    --jb-paper:      #FCF8F1;    /* 배경 오프화이트 (이미 _config 에 있지만 css 변수로 재정의) */
+    --jb-rule:       #E8DFCF;    /* 가는 디바이더 */
+    --jb-ocre:       #B45309;    /* 황토 액센트 */
+    --jb-ocre-deep:  #92400E;
+    --jb-amber:      #F59E0B;
+    --jb-cream:      #F5EDDC;    /* 카드 hover */
+    --jb-soft:       #7A6B5A;    /* 보조 텍스트(메타) */
+    --jb-deep:       #3D2817;    /* 짙은 브라운 (네비/푸터) */
+  }
+
+  /* ──────────── 타이포 베이스 ──────────── */
+  body, .post-list, .post-content, p, li, blockquote, .post-preview {
+    font-family: "Noto Serif KR", "Lora", Georgia, "Times New Roman", serif !important;
     font-weight: 400;
     line-height: 1.85;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.012em;
+    color: var(--jb-ink);
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "Noto Serif KR", Georgia, serif !important;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  h1, h2, h3, h4, h5, h6, .post-heading h1, .page-heading h1 {
+    font-family: "Playfair Display", "Noto Serif KR", Georgia, serif !important;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--jb-deep);
   }
-  /* 본문 첫 글자 살짝 강조 — 잡지 느낌 */
+  /* 제목 위계 — 본문 h2/h3 살짝 강한 톤 */
+  .post-content h2 {
+    font-size: 1.7em;
+    margin-top: 1.8em;
+    margin-bottom: 0.7em;
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid var(--jb-rule);
+  }
+  .post-content h3 {
+    font-size: 1.32em;
+    margin-top: 1.5em;
+    color: var(--jb-ocre-deep);
+  }
+
+  /* ──────────── 본문 첫 문단 드롭캡 ──────────── */
   .post-content > p:first-of-type::first-letter {
-    font-size: 1.6em;
-    font-weight: 700;
-    line-height: 1;
-    color: #B45309;
-    margin-right: 0.05em;
+    font-family: "Playfair Display", serif;
+    font-size: 3.2em;
+    font-weight: 800;
+    line-height: 0.88;
+    color: var(--jb-ocre);
+    float: left;
+    padding: 0.05em 0.12em 0 0;
+    margin-right: 0.02em;
   }
-  /* 글 헤더 이미지 더 풍부하게 — 약간 그림자 */
+
+  /* ──────────── hero (intro-header) ──────────── */
   .intro-header.big-img {
-    box-shadow: inset 0 0 0 99999px rgba(61, 40, 23, 0.18);
+    box-shadow: inset 0 0 0 99999px rgba(43, 32, 24, 0.22);
+    min-height: 60vh;
   }
-  /* 인용문 톤 */
+  .intro-header .post-heading h1,
+  .intro-header .page-heading h1 {
+    color: #fff !important;
+    font-size: 2.6em !important;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.6);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+  .intro-header .post-subheading {
+    color: rgba(255,255,255,0.92) !important;
+    font-family: "Noto Serif KR", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.05em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+  .intro-header .post-meta {
+    color: rgba(255,255,255,0.85) !important;
+    letter-spacing: 0.04em;
+    font-size: 0.88em;
+  }
+  /* 빈 hero — title 만 보이는 경우 (no-img) 톤 정리 */
+  .intro-header.no-img {
+    background: linear-gradient(135deg, var(--jb-paper), var(--jb-cream));
+    padding-top: 4em;
+    padding-bottom: 3em;
+    border-bottom: 1px solid var(--jb-rule);
+  }
+  .intro-header.no-img .post-heading h1,
+  .intro-header.no-img .page-heading h1 {
+    color: var(--jb-deep) !important;
+    font-size: 2.4em !important;
+    text-shadow: none;
+  }
+
+  /* ──────────── 본문 ──────────── */
+  .post-container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .post-content {
+    font-size: 1.075em;
+    color: var(--jb-ink);
+  }
+  .post-content p {
+    margin-bottom: 1.3em;
+  }
+  /* 인용 — 황토 좌측 굵은 막대 + 살짝 들여쓰기 */
   blockquote {
-    border-left: 3px solid #B45309 !important;
-    background: rgba(245, 158, 11, 0.06);
-    padding: 0.6em 1em !important;
-    color: #4A3527;
+    border-left: 3px solid var(--jb-ocre) !important;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.07), transparent 70%);
+    padding: 0.7em 1.2em !important;
+    margin: 1.6em 0 !important;
+    color: var(--jb-deep);
+    font-style: italic;
+    font-size: 1.02em;
   }
-  /* 링크 미세 — underline */
-  .post-content a {
+  blockquote p { margin-bottom: 0.4em; }
+  blockquote :last-child { margin-bottom: 0; }
+
+  /* 링크 — underline 미세 */
+  .post-content a, .post-list a, .container-md a {
+    color: var(--jb-ocre);
     text-decoration: underline;
-    text-decoration-color: rgba(180, 83, 9, 0.4);
+    text-decoration-color: rgba(180, 83, 9, 0.35);
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+  .post-content a:hover, .post-list a:hover {
+    color: var(--jb-ocre-deep);
+    text-decoration-color: var(--jb-ocre);
+  }
+
+  /* 본문 이미지 — 살짝 그림자 + 캡션 톤 */
+  .post-content img {
+    border-radius: 2px;
+    box-shadow: 0 4px 20px -8px rgba(43, 32, 24, 0.25);
+    margin: 1.4em auto 0.4em;
+    display: block;
+  }
+  /* `*[크레딧](url)*` 패턴은 italic — 작게 가운데 */
+  .post-content p > em:only-child {
+    display: block;
+    text-align: center;
+    font-size: 0.86em;
+    color: var(--jb-soft);
+    margin-top: -0.2em;
+    margin-bottom: 1.6em;
+    font-style: italic;
+  }
+
+  /* 코드 — JetBrains Mono, 다소 작게 */
+  code, pre, .post-content code {
+    font-family: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace !important;
+    font-size: 0.92em;
+  }
+  .post-content pre {
+    background: #FBF5E8;
+    border: 1px solid var(--jb-rule);
+    border-left: 3px solid var(--jb-ocre);
+    border-radius: 2px;
+    padding: 1em 1.2em;
+  }
+  .post-content :not(pre) > code {
+    background: rgba(180, 83, 9, 0.08);
+    color: var(--jb-ocre-deep);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+  }
+
+  /* ──────────── 홈(글 리스트) ──────────── */
+  /* beautiful-jekyll 의 글 카드 패턴: .post-preview */
+  .post-preview {
+    border-bottom: 1px solid var(--jb-rule);
+    padding-bottom: 1.8em;
+    margin-bottom: 1.8em;
+    transition: background 0.2s ease;
+  }
+  .post-preview:hover {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.04), transparent);
+  }
+  .post-preview > a > .post-title {
+    font-family: "Playfair Display", "Noto Serif KR", serif !important;
+    font-size: 1.85em;
+    color: var(--jb-deep);
+    margin-bottom: 0.15em;
+  }
+  .post-preview > a > .post-subtitle {
+    color: var(--jb-soft);
+    font-size: 1em;
+    font-style: italic;
+    line-height: 1.55;
+    margin-bottom: 0.6em;
+  }
+  .post-preview > a:hover { text-decoration: none; }
+  .post-preview > a:hover .post-title { color: var(--jb-ocre-deep); }
+  .post-meta {
+    color: var(--jb-soft) !important;
+    font-size: 0.84em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .post-meta a { color: var(--jb-ocre) !important; }
+
+  /* ──────────── 네비 ──────────── */
+  .navbar-custom {
+    background: var(--jb-deep) !important;
+    box-shadow: 0 2px 16px -6px rgba(43, 32, 24, 0.4);
+  }
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+    font-family: "Playfair Display", "Noto Serif KR", serif !important;
+    letter-spacing: 0.02em;
+  }
+
+  /* ──────────── footer ──────────── */
+  footer .beautiful-jekyll-footer,
+  footer.site-footer {
+    background: var(--jb-deep);
+    color: var(--jb-paper);
+    padding: 2.4em 0 2em;
+  }
+
+  /* ──────────── 미세 ──────────── */
+  /* 글 끝 sources 구분선 톤 */
+  hr {
+    border: 0;
+    border-top: 1px solid var(--jb-rule);
+    margin: 2.4em 0 1.6em;
+  }
+  /* `***` 표시도 동일 효과 */
+  .post-content p:has(> *:first-child:last-child) { /* 안전망 */ }
+
+  /* 모바일 — hero 텍스트 살짝 작게 */
+  @media (max-width: 768px) {
+    .intro-header .post-heading h1,
+    .intro-header .page-heading h1 {
+      font-size: 1.9em !important;
+    }
+    .post-content { font-size: 1.02em; }
+    .post-content > p:first-of-type::first-letter {
+      font-size: 2.6em;
+    }
   }
 </style>
