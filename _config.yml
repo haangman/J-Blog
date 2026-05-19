@@ -55,6 +55,13 @@ permalink: /:year/:month/:day/:slug/
 paginate: 10
 paginate_path: "/page:num/"
 
+# 모든 페이지에 head-custom.html 자동 삽입 (beautiful-jekyll 6.x 는 head-extra hook 사용).
+defaults:
+  - scope:
+      path: ""
+    values:
+      head-extra: ["head-custom.html"]
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
